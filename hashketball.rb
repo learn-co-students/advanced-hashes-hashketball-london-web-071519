@@ -76,3 +76,35 @@ def team_colors(team_names)
       end
   end
 end
+
+def team_names
+  teams_names = []
+  game_hash.collect do |home_away, team_data|
+    team_data.each do |attributes, data|
+      if attributes == :team_name
+        teams_names.push(data)
+      end
+    end
+  end
+  return teams_names
+end
+
+def player_numbers(team_name)
+  players_number = []
+  game_hash.each do |home_away, team_data|
+      if team_data.values.include?(team_name)
+        team_data.each do |team, attributes|
+          if team.to_s == "players"
+            attributes.each do |name, data|
+              data.each do |number, shirt_no|
+                if number.to_s == "number"
+                  players_number.push(shirt_no)
+                end
+              end
+            end
+          end
+        end
+      end
+  end
+  return players_number
+end
