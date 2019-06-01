@@ -30,7 +30,6 @@ def game_hash
 end
 
 def num_points_scored(name)
-  array = []
   game_hash.each do |home_away, team_data|
     team_data.each do |team, attributes|
       if attributes.is_a?(Hash)
@@ -38,9 +37,9 @@ def num_points_scored(name)
            if player_name == name
             player_stats.each do |stat, data|
               if stat.to_s == "points"
-                #  array.push(data)
                 return data
               end
+            end
            end
         end
       end
@@ -48,4 +47,32 @@ def num_points_scored(name)
   end
 end
 
+def shoe_size(name)
+  game_hash.each do |home_away, team_data|
+    team_data.each do |team, attributes|
+      if attributes.is_a?(Hash)
+        attributes.each do |player_name, player_stats|
+           if player_name == name
+            player_stats.each do |stat, data|
+              if stat.to_s == "shoe"
+                return data
+              end
+            end
+           end
+        end
+      end
+    end
+  end
+end
+
+def team_colors(team_names)
+  game_hash.each do |home_away, team_data|
+      if team_data.values.include?(team_names)
+        team_data.each do |team, attributes|
+          if team.to_s == "colors"
+            return attributes
+          end
+        end
+      end
+  end
 end
